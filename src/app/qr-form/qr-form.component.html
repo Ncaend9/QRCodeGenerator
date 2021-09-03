@@ -1,0 +1,85 @@
+<div class="container">
+    <!-- Content Row -->
+    <div class="row d-flex justify-content-center">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+            <form class="user" [formGroup]="formUser" (ngSubmit)="onSubmit()">
+                <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <h6 class="m-0 font-weight-bold text-primary">Crear codigo QR</h6>
+                    </div>
+                    <div class="card-body">
+                        <p>Ingrese los datos en los siguiente campos:</p>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <label for="name">Nombre del archivo</label>
+                                    <input class="form-control form-control-user" type="text" formControlName="filename"
+                                        [ngClass]="{ 'is-invalid': submitted && formUserValidate.filename.errors }"
+                                        id="name">
+                                    <div *ngIf="submitted && formUserValidate.filename.errors" class="invalid-feedback">
+                                        <div *ngIf="formUserValidate.filename.errors.required">URL
+                                            Requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <label for="name">URL o mensaje</label>
+                                    <input class="form-control form-control-user" type="text" formControlName="url"
+                                        [ngClass]="{ 'is-invalid': submitted && formUserValidate.url.errors }"
+                                        id="name">
+                                    <div *ngIf="submitted && formUserValidate.url.errors" class="invalid-feedback">
+                                        <div *ngIf="formUserValidate.url.errors.required">URL
+                                            Requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <label for="pass">Tamaño (300,600,900)</label>
+                                    <input class="form-control form-control-user" type="number" formControlName="size"
+                                        [ngClass]="{ 'is-invalid': submitted && formUserValidate.size.errors }"
+                                        id="pass">
+                                    <div *ngIf="submitted && formUserValidate.size.errors" class="invalid-feedback">
+                                        <div *ngIf="formUserValidate.size.errors.required">Tamaño
+                                            Requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                            <button type="submit" class="btn btn-user btn-success btn-block"
+                                [disabled]="formUser.invalid">Crear <i class="fas fa-save"></i></button>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                            <button type="reset" class="btn btn-user btn-danger btn-block"
+                                (click)="resetForm()">Cancelar
+                                <i class="fas fa-ban"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /Content Row -->
+</div>
+<div class="container" *ngIf="submitted">
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-3"></div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-6">
+            <button type="submit" class="btn btn-user btn-info btn-block" (click)="download()" mb-4 mt-1>Descargar <i
+                    class="fas fa-download"></i></button>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center" id="myTableElementId">
+        <qr-code [value]="valueQr" [size]="size" [level]="H" errorCorrectionLevel="H"></qr-code>
+    </div>
+</div>
